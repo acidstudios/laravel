@@ -45,4 +45,35 @@ class UserController extends Controller
             'expires_at' => $tokenResult->token->expires_at
         ]);
     }
+
+    public function register(Request $request) {
+        $alidator = Validator::make([
+            'name' => 'required|string',
+            'email' => 'required|string|email|unique:users',
+            'password' => 'required|string',
+            'confirm_password' => 'required|string|same:password'
+        ]);
+
+        if($validator->fails()) {
+            return response()->json(['error' => $validator->error()], 401);
+        }
+
+        $input = $request->all();
+        $input['password'] = bcrypt($input['password']);
+        $user = User::create($input);
+        $token = $user->createToken('AuthorizationToken');
+        
+        return respone()->json([
+            'access_token' => $token->accesstoken,
+            'token_type' => 'Bearer',
+            'expires_at' => $token->token->expires_at,
+            'user' => $user
+        ]);
+    }
+
+    public function me() {
+        $user = Auth::user();
+
+        return response()->json($user, 200);
+    }
 }
