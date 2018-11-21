@@ -47,15 +47,17 @@ class UserController extends Controller
     }
 
     public function register(Request $request) {
-        $alidator = Validator::make([
-            'name' => 'required|string',
+        $lang = $request->header('Lang');
+
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|unique:users',
             'email' => 'required|string|email|unique:users',
-            'password' => 'required|string',
+            'password' => 'required|string|min:8',
             'confirm_password' => 'required|string|same:password'
         ]);
 
         if($validator->fails()) {
-            return response()->json(['error' => $validator->error()], 401);
+            return response()->json(['error' => $validator->errors(), 'lang' => $lang], 500);
         }
 
         $input = $request->all();
@@ -63,15 +65,15 @@ class UserController extends Controller
         $user = User::create($input);
         $token = $user->createToken('AuthorizationToken');
         
-        return respone()->json([
-            'access_token' => $token->accesstoken,
+        return response()->json([
+            'access_token' => $token->accessToken,
             'token_type' => 'Bearer',
             'expires_at' => $token->token->expires_at,
             'user' => $user
         ]);
     }
 
-    public function me() {
+    public function me(Request $request) {
         $user = Auth::user();
 
         return response()->json($user, 200);
