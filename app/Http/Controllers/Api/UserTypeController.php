@@ -2,20 +2,11 @@
 
 namespace App\Http\Controllers\Api;
 
-use Illuminate\Http\Request; 
-use App\Http\Controllers\Controller; 
-use App\Models\User; 
-use Illuminate\Support\Facades\Auth; 
-use Validator;
+use App\Models\UserType;
+use Illuminate\Http\Request;
 
-class UserController extends Controller
+class UserTypeController extends Controller
 {
-    public function me(Request $request) {
-        $user = Auth::user();
-
-        return response()->json($user, 200);
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -50,10 +41,10 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\User  $user
+     * @param  \App\UserType  $userType
      * @return \Illuminate\Http\Response
      */
-    public function show(User $user)
+    public function show(UserType $userType)
     {
         //
     }
@@ -61,10 +52,10 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\User  $user
+     * @param  \App\UserType  $userType
      * @return \Illuminate\Http\Response
      */
-    public function edit(User $user)
+    public function edit(UserType $userType)
     {
         //
     }
@@ -73,10 +64,10 @@ class UserController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\User  $user
+     * @param  \App\UserType  $userType
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request, UserType $userType)
     {
         //
     }
@@ -84,10 +75,10 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\User  $user
+     * @param  \App\UserType  $userType
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
+    public function destroy(UserType $userType)
     {
         //
     }
