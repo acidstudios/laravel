@@ -19,6 +19,7 @@ class RoleTableSeeder extends Seeder
         $admin = new Role();
         $admin->name = 'Administrator';
         $admin->slug = 'admin';
+        $admin->save();
         $admin->permissions()->attach($write_permission);
         $admin->permissions()->attach($read_permission);
     }
