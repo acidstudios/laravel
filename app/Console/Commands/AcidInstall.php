@@ -39,12 +39,13 @@ class AcidInstall extends Command
     {
         $seed = $this->option('seed');
 
-        if(isset($seed)) {
-            $this->call('migrate:refresh', ['--seed']);
-        } else {
-            $this->call('migrate:refresh');
+        $this->call('migrate:refresh');
+
+        if($seed !== null) {
+            $this->info('Running Seeders');
+            $this->call('db:seed');
         }
 
-        $this->call('passport:install');
+        $this->call('passport:install', ['--force']);
     }
 }
