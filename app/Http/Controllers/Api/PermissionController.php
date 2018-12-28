@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller; 
-use App\Permission;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Validator;
+
+use App\Models\Permission;
 
 class PermissionController extends Controller
 {
@@ -16,17 +17,9 @@ class PermissionController extends Controller
      */
     public function index()
     {
-        //
-    }
+        $permissions = Permission::all();
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return response()->json($permissions, 200);
     }
 
     /**
@@ -37,27 +30,37 @@ class PermissionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $fields = $request->all();
+        $rules = [
+            'slug' => 'required',
+            'name' => 'required'
+        ];
+
+        $messages = [
+            'slug.required' => 'Slug is required',
+            'name.required' => 'Name is required'
+        ];
+
+        $validator = Validator::make($fields, $rules, $messages);
+
+        if($validator->fails()) {
+            return response()->json(['status' => 500, 'hasError' => true, 'messages' => $validator->messages()], 500);
+        }
+
+        $permission = new Permission;
+        $permission->fill($fields);
+        $permission->save();
+
+        return response()->json(['status' => 200, 'hasError' => false, 'messages' => []]);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Permission  $permission
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Permission $permission)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Permission  $permission
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Permission $permission)
+    public function show($id)
     {
         //
     }
@@ -66,10 +69,10 @@ class PermissionController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Permission  $permission
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Permission $permission)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -77,10 +80,10 @@ class PermissionController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Permission  $permission
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Permission $permission)
+    public function destroy($id)
     {
         //
     }

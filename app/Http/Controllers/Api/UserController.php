@@ -11,7 +11,7 @@ use Validator;
 class UserController extends Controller
 {
     public function me(Request $request) {
-        $user = Auth::user();
+        $user = $this->CurrentUser();
 
         return response()->json($user, 200);
     }
