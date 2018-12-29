@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Permission as PermissionResource;
+use App\Http\Resources\PermissionCollection;
 use Validator;
 
 use App\Models\Permission;
@@ -17,9 +19,7 @@ class PermissionController extends Controller
      */
     public function index()
     {
-        $permissions = Permission::all();
-
-        return response()->json($permissions, 200);
+        return PermissionResource::collection(Permission::all());
     }
 
     /**
@@ -62,7 +62,7 @@ class PermissionController extends Controller
      */
     public function show($id)
     {
-        //
+        return new PermissionResource(Permission::find($id));
     }
 
     /**
@@ -85,6 +85,14 @@ class PermissionController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $permission = Permission::find($id);
+
+        if(isset($permission)) {
+            $permission->delete();
+
+            return response()->json(null, 204);
+        }
+
+        return response()->json(null, 404);
     }
 }
