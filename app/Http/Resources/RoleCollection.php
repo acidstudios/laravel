@@ -6,6 +6,7 @@ use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class RoleCollection extends ResourceCollection
 {
+    public $collects = 'App\Http\Resources\Role';
     /**
      * Transform the resource collection into an array.
      *
@@ -14,6 +15,9 @@ class RoleCollection extends ResourceCollection
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            'count' => $this->collection->count(),
+            'data' => $this->collection
+        ];
     }
 }

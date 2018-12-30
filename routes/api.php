@@ -22,6 +22,7 @@ Route::post('register', 'Api\SessionController@register');
 
 Route::group(['middleware' => 'auth:api'], function() {
     Route::post('me', 'Api\Usercontroller@me');
+
     Route::apiResource('permission', 'Api\PermissionController');
     Route::apiResource('role', 'Api\RoleController');
 });

@@ -19,7 +19,7 @@ class PermissionController extends Controller
      */
     public function index()
     {
-        return PermissionResource::collection(Permission::all());
+        return new PermissionCollection(Permission::all());
     }
 
     /**
@@ -43,7 +43,8 @@ class PermissionController extends Controller
 
         $validator = Validator::make($fields, $rules, $messages);
 
-        if($validator->fails()) {
+        if($validator->fails()) 
+        {
             return response()->json(['status' => 500, 'hasError' => true, 'messages' => $validator->messages()], 500);
         }
 
@@ -51,7 +52,12 @@ class PermissionController extends Controller
         $permission->fill($fields);
         $permission->save();
 
-        return response()->json(['status' => 200, 'hasError' => false, 'messages' => []]);
+        if($permission->save())
+        {
+            return new PermissionResource($permission);
+        }
+
+        return response()->json(['status' => 403, 'hasError' => false, 'messages' => []], 403);
     }
 
     /**
@@ -74,7 +80,38 @@ class PermissionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $permission = Permission::find($id);
+
+        if(isset($permission))
+        {
+            $fields = $request->all();
+            $rules = [
+                'slug' => 'required',
+                'name' => 'required'
+            ];
+    
+            $messages = [
+                'slug.required' => 'Slug is required',
+                'name.required' => 'Name is required'
+            ];
+    
+            $validator = Validator::make($fields, $rules, $messages);
+    
+            if($validator->fails()) 
+            {
+                return response()->json(['status' => 500, 'hasError' => true, 'messages' => $validator->messages()], 500);
+            }
+
+            $permission->fill($fields);
+
+            if($permission->save())
+            {
+                return new PermissionResource($permission);
+            }
+
+            return response()->json(null, 500);
+        }
+        return response()->json(['hasError' => true], 404);
     }
 
     /**

@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller; 
-use App\Role;
+use App\Models\Role;
+use App\Http\Resources\Role as RoleResource;
+use App\Http\Resources\RoleCollection;
 use Illuminate\Http\Request;
 use Validator;
 
@@ -16,7 +18,7 @@ class RoleController extends Controller
      */
     public function index()
     {
-        //
+        return new RoleCollection(Role::all());
     }
 
     /**
