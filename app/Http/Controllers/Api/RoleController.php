@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Models\UserType;
+use App\Http\Controllers\Controller; 
+use App\Role;
 use Illuminate\Http\Request;
+use Validator;
 
-class UserTypeController extends Controller
+class RoleController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +43,10 @@ class UserTypeController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\UserType  $userType
+     * @param  \App\Role  $role
      * @return \Illuminate\Http\Response
      */
-    public function show(UserType $userType)
+    public function show(Role $role)
     {
         //
     }
@@ -52,10 +54,10 @@ class UserTypeController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\UserType  $userType
+     * @param  \App\Role  $role
      * @return \Illuminate\Http\Response
      */
-    public function edit(UserType $userType)
+    public function edit(Role $role)
     {
         //
     }
@@ -64,10 +66,10 @@ class UserTypeController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\UserType  $userType
+     * @param  \App\Role  $role
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, UserType $userType)
+    public function update(Request $request, Role $role)
     {
         //
     }
@@ -75,10 +77,10 @@ class UserTypeController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\UserType  $userType
+     * @param  \App\Role  $role
      * @return \Illuminate\Http\Response
      */
-    public function destroy(UserType $userType)
+    public function destroy(Role $role)
     {
         //
     }
