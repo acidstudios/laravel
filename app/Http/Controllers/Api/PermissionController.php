@@ -111,6 +111,7 @@ class PermissionController extends Controller
 
             return response()->json(null, 500);
         }
+        
         return response()->json(['hasError' => true], 404);
     }
 
