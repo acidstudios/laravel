@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Api;
 use Illuminate\Http\Request; 
 use App\Http\Controllers\Controller; 
 use App\Models\User; 
+use App\Http\Resources\User as UserResource;
+use App\Http\Resources\UserCollection;
 use Illuminate\Support\Facades\Auth; 
 use Validator;
 
@@ -23,7 +25,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        return new UserCollection(User::all());
     }
 
     /**

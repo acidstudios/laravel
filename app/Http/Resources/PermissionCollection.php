@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class PermissionCollection extends ResourceCollection
+class PermissionCollection extends BaseCollection
 {
     /**
      * Transform the resource collection into an array.
@@ -14,9 +14,6 @@ class PermissionCollection extends ResourceCollection
      */
     public function toArray($request)
     {
-        return [
-            'count' => $this->collection->count(),
-            'data' => $this->collection,
-        ];
+        return parent::toArray($request);
     }
 }
