@@ -6,7 +6,6 @@ use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class RoleCollection extends ResourceCollection
 {
-    public $collects = 'App\Http\Resources\Role';
     /**
      * Transform the resource collection into an array.
      *
