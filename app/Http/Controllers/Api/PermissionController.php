@@ -54,7 +54,7 @@ class PermissionController extends Controller
 
         if($permission->save())
         {
-            return new PermissionResource($permission);
+            return PermissionResource::make($permission);
         }
 
         return response()->json(['status' => 403, 'hasError' => false, 'messages' => []], 403);
@@ -68,7 +68,7 @@ class PermissionController extends Controller
      */
     public function show($id)
     {
-        return new PermissionResource(Permission::find($id));
+        return PermissionResource::make(Permission::find($id));
     }
 
     /**
@@ -106,7 +106,7 @@ class PermissionController extends Controller
 
             if($permission->save())
             {
-                return new PermissionResource($permission);
+                return PermissionResource::make($permission);
             }
 
             return response()->json(null, 500);

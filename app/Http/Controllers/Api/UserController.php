@@ -123,7 +123,7 @@ class UserController extends Controller
                     }
                 }
                 $user = User::find($id);
-                return new UserResource($user);
+                return UserResource::make($user)->hide(['meta']);
             }
 
             return response()->json(null, 500);

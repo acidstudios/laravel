@@ -54,7 +54,7 @@ class RoleController extends Controller
 
         if($role->save())
         {
-            return new RoleResource($role);
+            return RoleResource::make($role);
         }
 
         return response()->json(['status' => 403, 'hasError' => false, 'messages' => []], 403);
@@ -68,7 +68,7 @@ class RoleController extends Controller
      */
     public function show($id)
     {
-        return new RoleResource(Role::find($id));
+        return RoleResource::make(Role::find($id));
     }
 
     /**
@@ -106,7 +106,7 @@ class RoleController extends Controller
 
             if($role->save())
             {
-                return new RoleResource($role);
+                return RoleResource::make($role);
             }
 
             return response()->json(null, 500);
