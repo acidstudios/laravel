@@ -73,7 +73,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        return new UserResource(User::find($id));
+        return UserResource::make(User::find($id))->hide(['meta']);
     }
 
     /**

@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class User extends JsonResource
+class User extends BaseResource
 {
     /**
      * Transform the resource into an array.
@@ -15,7 +15,7 @@ class User extends JsonResource
     public function toArray($request)
     {
         try {
-            return [
+            return parent::filterFields([
                 'id' => $this->id,
                 'name' => $this->name,
                 'email' => $this->email,
@@ -24,7 +24,7 @@ class User extends JsonResource
                     'rel' => 'self',
                     'link' => route('users.show', $this->id)
                 ]
-            ];
+            ]);
         } catch (\Throwable $th) {
             return [
                 'hasError' => true,
