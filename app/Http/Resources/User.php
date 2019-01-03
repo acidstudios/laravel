@@ -14,6 +14,22 @@ class User extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        try {
+            return [
+                'id' => $this->id,
+                'name' => $this->name,
+                'email' => $this->email,
+                'roles' => Role::collection($this->roles),
+                'meta' => [
+                    'rel' => 'self',
+                    'link' => route('users.show', $this->id)
+                ]
+            ];
+        } catch (\Throwable $th) {
+            return [
+                'hasError' => true,
+                'messages' => [$th->getMessage()]
+            ];
+        }
     }
 }

@@ -27,7 +27,7 @@ class SessionController extends Controller
         ]);
 
         if($validator->fails()) {
-            return response()->json(['error' => $validator->errors(), 'lang' => $lang], 500);
+            return response()->json(['error' => $validator->errors(), 'lang' => $lang], 422);
         }
 
         $credentials = request(['email', 'password']);
@@ -63,7 +63,7 @@ class SessionController extends Controller
         ]);
 
         if($validator->fails()) {
-            return response()->json(['error' => $validator->errors(), 'lang' => $lang], 500);
+            return response()->json(['error' => $validator->errors(), 'lang' => $lang], 422);
         }
 
         $input = $request->all();
