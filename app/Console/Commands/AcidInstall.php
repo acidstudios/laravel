@@ -49,7 +49,7 @@ class AcidInstall extends Command
     
             $this->call('passport:install', ['--force']);
         } catch (\Exception $ex) {
-            $this->error($e->getMessage());
+            $this->error($ex->getMessage());
         }
     }
 }
