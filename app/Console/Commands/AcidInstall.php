@@ -48,6 +48,7 @@ class AcidInstall extends Command
             }
     
             $this->call('passport:install', ['--force']);
+            $this->call('vendor:publish', ['--tag="cors"']);
         } catch (\Exception $ex) {
             $this->error($ex->getMessage());
         }
